@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Book a table · Restaurante Exemplo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <span class="logo">Restaurante Exemplo</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="booking.html">Book a table</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="block booking-block">
+        <h2>Book a table</h2>
+        <!-- Button: the venue's own button opens the widget in a modal -->
+        <button
+          type="button"
+          class="book-now"
+          onclick="window.umaiWidget && window.umaiWidget.openWidget()"
+        >
+          Book now
+        </button>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      Rua Exemplo 12, Lisboa · Built to look like a CentralApp site
+    </footer>
+
+    <script
+      src="https://widgetstaging.letsumai.com/dist/embed.min.js"
+      data-api-key="59df65da-60fc-48c7-b8ce-1f246d16f952"
+      data-widget-type="reservation"
+      data-frame-embed="modal"
+      data-floating-button-is-enabled="false"
+    ></script>
+  </body>
+</html>

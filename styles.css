@@ -1,0 +1,98 @@
+:root {
+  --brand: #b5402a;
+  --ink: #2b211d;
+  --paper: #fbf6ef;
+  --muted: #7a6a62;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--ink);
+  color: var(--paper);
+}
+.site-header a {
+  color: var(--paper);
+  text-decoration: none;
+  margin-left: 16px;
+}
+.logo {
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+}
+.hero {
+  padding: 96px 24px;
+  text-align: center;
+  color: #fff;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    linear-gradient(135deg, #b5402a, #6b2a1c);
+}
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+}
+section.block {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+.block h2 {
+  margin-top: 0;
+  font-size: 1.8rem;
+}
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.menu-item {
+  padding: 16px;
+  border: 1px solid #e6dccf;
+  border-radius: 8px;
+  background: #fff;
+}
+.menu-item p {
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+/* The CentralApp-style block that hosts the venue's "Book now" button */
+.booking-block {
+  background: #fff;
+  border-top: 4px solid var(--brand);
+}
+.book-now {
+  padding: 12px 24px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--brand);
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.site-footer {
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--muted);
+}
+@media (max-width: 600px) {
+  .site-header nav {
+    display: none;
+  }
+}
