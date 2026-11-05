@@ -3,6 +3,9 @@
   --ink: #2b211d;
   --paper: #fbf6ef;
   --muted: #7a6a62;
+  /* The header keeps these whatever the page background option is */
+  --header-bg: #2b211d;
+  --header-fg: #fbf6ef;
 }
 * {
   box-sizing: border-box;
@@ -23,11 +26,11 @@ body {
   justify-content: space-between;
   gap: 16px;
   padding: 16px 24px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--header-bg);
+  color: var(--header-fg);
 }
 .site-header a {
-  color: var(--paper);
+  color: var(--header-fg);
   text-decoration: none;
   margin-left: 16px;
 }
