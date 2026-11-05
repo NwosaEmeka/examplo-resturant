@@ -66,9 +66,29 @@
         </div>
       </section>
 
+      <!-- Demo controls: not part of a venue's page. Each toggle rebuilds the
+           iframe src and is mirrored into this page's URL, so a link keeps them. -->
+      <form class="demo-controls" id="demo-controls">
+        <strong>Widget options</strong>
+        <label><input type="checkbox" name="hide_header" /> Hide header</label>
+        <label><input type="checkbox" name="single_tab" /> Single tab</label>
+        <label>
+          <input type="checkbox" name="transparent_bg" /> Transparent background
+        </label>
+        <label>
+          Page background
+          <select name="page_bg">
+            <option value="cream">Cream</option>
+            <option value="white">White</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </form>
+
       <!-- No button: a plain iframe on the widget frame page, rendered inline on load -->
-      <div data-umai-widget></div>
+      <!-- <div data-umai-widget></div> -->
       <iframe
+        id="umai-widget"
         src="https://widgetstaging.letsumai.com/dist/embed-frame.html?api_key=59df65da-60fc-48c7-b8ce-1f246d16f952&widget_type=reservation&frame_mode=inline&locale=en"
         title="UMAI booking"
         allow="payment *"
@@ -79,5 +99,51 @@
     <footer class="site-footer">
       Rua Exemplo 12, Lisboa · Built to look like a CentralApp site
     </footer>
+
+    <script>
+      const WIDGET_ORIGIN = "https://widgetstaging.letsumai.com";
+      const FLAGS = ["hide_header", "single_tab", "transparent_bg"];
+      const frame = document.getElementById("umai-widget");
+      const form = document.getElementById("demo-controls");
+      const baseSrc = frame.getAttribute("src");
+
+      const apply = () => {
+        const src = new URL(baseSrc);
+        const pageUrl = new URL(location.href);
+        FLAGS.forEach((flag) => {
+          const isOn = form.elements[flag].checked;
+          if (isOn) src.searchParams.set(flag, "1");
+          if (isOn) pageUrl.searchParams.set(flag, "1");
+          else pageUrl.searchParams.delete(flag);
+        });
+        const pageBg = form.elements.page_bg.value;
+        document.body.dataset.pageBg = pageBg;
+        if (pageBg === "cream") pageUrl.searchParams.delete("page_bg");
+        else pageUrl.searchParams.set("page_bg", pageBg);
+        history.replaceState(null, "", pageUrl);
+        if (frame.src !== src.href) frame.src = src.href;
+      };
+
+      // Restore the options from this page's URL
+      const params = new URLSearchParams(location.search);
+      FLAGS.forEach((flag) => {
+        form.elements[flag].checked = params.get(flag) === "1";
+      });
+      form.elements.page_bg.value = params.get("page_bg") || "cream";
+      form.addEventListener("change", apply);
+      apply();
+
+      // What we recommend to CentralApp: grow the iframe to the widget's height
+      // and bring its top into view when the widget asks
+      addEventListener("message", (event) => {
+        if (event.origin !== WIDGET_ORIGIN) return;
+        const message = event.data;
+        if (!message || message.source !== "umai-widget" || message.v !== 1) return;
+        if (message.type === "resize") frame.style.height = `${message.height}px`;
+        if (message.type === "scroll-to-top") {
+          frame.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    </script>
   </body>
 </html>

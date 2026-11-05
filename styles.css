@@ -96,3 +96,38 @@ section.block {
     display: none;
   }
 }
+/* Page background options on the demo page */
+body[data-page-bg="white"] {
+  --paper: #ffffff;
+}
+body[data-page-bg="dark"] {
+  --paper: #1f1a17;
+  --ink: #f3ece4;
+  --muted: #b9aca2;
+}
+body[data-page-bg] {
+  background: var(--paper);
+  color: var(--ink);
+}
+/* Demo-only bar above the widget; not part of a venue's page */
+.demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  max-width: 960px;
+  margin: 0 auto 24px;
+  padding: 12px 16px;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  color: #2b211d;
+  background: #fff;
+  border: 1px dashed #b5402a;
+  border-radius: 8px;
+}
+.demo-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
